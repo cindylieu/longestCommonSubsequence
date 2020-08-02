@@ -7,7 +7,7 @@ int lcs(char *text1, char *text2, int len1, int len2);
 int max (int a, int b);
 
 int main() {
-    longestCommonSubsequence("abcde", "ace");
+    printf("%d", longestCommonSubsequence("abcde", "ace"));
     return 0;
 }
 
@@ -27,13 +27,17 @@ int lcs(char *text1, char *text2, int len1, int len2) {
 
     int dp[row][col];
 
+    for (int r = 0; r < len1; r++) {
+        for (int c = 0; c < len2; c++) {
+            dp[r][c] = 0;
+        }
+    }
+
     int i, j;
 
     for (i = 0; i < len1; i++) {
         for (j = 0; j < len2; j++ ) {
-            if (i == 0 || j == 0) {
-                dp[i][j] = 0;
-            } else if (text1[i-1] == text2[j-1]) {
+            if (text1[i-1] == text2[j-1]) {
                 dp[i][j] = dp[i-1][j-1] + 1;
             } else {
                 dp[i][j] = max(dp[i-1][j], dp[i][j-1]);
